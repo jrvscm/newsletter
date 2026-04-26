@@ -19,6 +19,11 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "http://localhost:3000";
 
+/** Bumps when you change the share image so iMessage / Slack refresh their preview cache. */
+const shareImageCacheBust =
+  process.env.NEXT_PUBLIC_OG_IMAGE_CACHE_BUST?.trim() || "2";
+const shareImagePath = `/bellnob-clubhouse-share.png?v=${encodeURIComponent(shareImageCacheBust)}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -41,7 +46,7 @@ export const metadata: Metadata = {
       "Course updates, tournaments, and agronomy news from Bell Nob Golf Course, Gillette, WY.",
     images: [
       {
-        url: "/bellnob-clubhouse-share.png",
+        url: shareImagePath,
         width: 326,
         height: 154,
         alt: "Bell Nob Golf Course clubhouse",
@@ -53,7 +58,7 @@ export const metadata: Metadata = {
     title: "Bell Nob Golf Course — Newsletter",
     description:
       "Course updates, tournaments, and agronomy news from Bell Nob Golf Course.",
-    images: ["/bellnob-clubhouse-share.png"],
+    images: [shareImagePath],
   },
   robots: {
     index: true,
