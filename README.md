@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bell Nob Golf Course — Newsletter
 
-## Getting Started
+A single-page, static **course newsletter** for Bell Nob Golf Course (Gillette, Wyoming): club pro message, superintendent / grounds update with photos, full **tournament calendar**, and past-update summaries. Built for a calm, print-adjacent layout and **static hosting** (no server runtime).
 
-First, run the development server:
+## Stack
+
+- **Next.js** (App Router) + **TypeScript**
+- **Tailwind CSS** v4 + **shadcn/ui** (Base UI primitives)
+- **`output: "export"`** — static HTML in `out/` for Netlify or any static host
+
+## Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev    # local development
+npm run build  # production build → ./out
+npm run lint   # ESLint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | Where |
+|------|--------|
+| Issue date, club pro, grounds copy & images, accordion “past” blurbs | `lib/data.ts` |
+| Tournament / league calendar (month groups) | `lib/calendar.ts` |
+| Course & grounds photos (paths like `/grounds/…`) | `public/grounds/` and `public/` |
+| Page structure & sections | `app/page.tsx` |
+| Reusable UI | `components/` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+After changing copy or assets, run `npm run build` before deploy so the static export reflects updates.
 
-## Learn More
+## Environment (sharing & Open Graph)
 
-To learn more about Next.js, take a look at the following resources:
+Set **`NEXT_PUBLIC_SITE_URL`** to your **public site URL** with no trailing slash (for example `https://your-site.netlify.app`). It is read at **build** time for `metadataBase` and social preview URLs. Copy `.env.example` to `.env.local` for local builds, and add the same variable in **Netlify → Site configuration → Environment variables**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy (Netlify)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`netlify.toml` runs `npm run build` and publishes **`out/`**. Connect the repo, set `NEXT_PUBLIC_SITE_URL` for the production (and preview) context, then deploy.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Private project for the club; no license is implied unless you add one.
