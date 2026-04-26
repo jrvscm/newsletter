@@ -8,11 +8,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { TournamentEventHover } from "@/components/tournament-event-hover";
 import type { CalendarMonth } from "@/lib/calendar";
+import { isRecurringPlayDayId } from "@/lib/calendar-expand";
 
 type TournamentCalendarProps = {
   year: number;
   months: CalendarMonth[];
+  /** Omitted outer `Card` — use with a parent shell (e.g. calendar + list toggle). */
+  embedded?: boolean;
 };
 
 /** Which accordion panels start open: this calendar month + the next, when both exist. */
@@ -56,25 +60,22 @@ function getDefaultOpenMonthKeys(months: CalendarMonth[]): string[] {
   return [currentKey, nextKey];
 }
 
-export function TournamentCalendar({ year, months }: TournamentCalendarProps) {
+export function TournamentCalendar({
+  year,
+  months,
+  embedded = false,
+}: TournamentCalendarProps) {
   const defaultOpenKeys = useMemo(
     () => getDefaultOpenMonthKeys(months),
     [months]
   );
 
-  return (
-    <Card className="overflow-hidden border border-border shadow-none ring-0">
-      <CardHeader className="border-b border-border bg-muted/30 px-4 py-3 sm:px-5 sm:py-4">
-        <CardTitle className="font-serif text-base font-medium text-foreground">
-          {year} season
-        </CardTitle>
-        <p className="text-xs text-muted-foreground">
-          Tournaments, outings, and recurring play. Formats and times are subject
-          to the pro shop schedule.
-        </p>
-      </CardHeader>
-      <CardContent className="p-0">
-        <Accordion multiple defaultValue={defaultOpenKeys} className="w-full">
+  const body = (
+    <Accordion
+      multiple
+      defaultValue={defaultOpenKeys}
+      className={embedded ? "w-full border-t border-border" : "w-full"}
+    >
           {months.map((month) => (
             <AccordionItem
               key={month.key}
@@ -108,9 +109,16 @@ export function TournamentCalendar({ year, months }: TournamentCalendarProps) {
                           {ev.days}
                         </p>
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm font-medium leading-snug text-foreground">
-                            {ev.title}
-                          </p>
+                          <TournamentEventHover
+                            variant="list"
+                            label={ev.title}
+                            fullTitle={ev.fullTitle?.trim() || ev.title}
+                            detail={ev.detail}
+                            flyerUrl={ev.flyerUrl}
+                            isRecurring={isRecurringPlayDayId(ev.id)}
+                            textClassName="text-sm font-medium leading-snug text-foreground"
+                            hideDetailInTooltip
+                          />
                           {ev.detail ? (
                             <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
                               {ev.detail}
@@ -125,7 +133,24 @@ export function TournamentCalendar({ year, months }: TournamentCalendarProps) {
             </AccordionItem>
           ))}
         </Accordion>
-      </CardContent>
+  );
+
+  if (embedded) {
+    return body;
+  }
+
+  return (
+    <Card className="overflow-hidden border border-border shadow-none ring-0">
+      <CardHeader className="border-b border-border bg-muted/30 px-4 py-3 sm:px-5 sm:py-4">
+        <CardTitle className="font-serif text-base font-medium text-foreground">
+          {year} season
+        </CardTitle>
+        <p className="text-xs text-muted-foreground">
+          Tournaments, outings, and recurring play. Formats and times are subject
+          to the pro shop schedule.
+        </p>
+      </CardHeader>
+      <CardContent className="p-0">{body}</CardContent>
     </Card>
   );
 }

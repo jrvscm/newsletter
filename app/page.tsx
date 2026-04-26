@@ -4,7 +4,7 @@ import { GroundsSection } from "@/components/grounds-section";
 import { Header } from "@/components/Header";
 import { PastUpdates } from "@/components/past-updates";
 import { Section } from "@/components/Section";
-import { TournamentCalendar } from "@/components/tournament-calendar";
+import { TournamentEventSchedule } from "@/components/tournament-event-schedule";
 import { seasonCalendar, seasonCalendarYear } from "@/lib/calendar";
 import { currentUpdate, pastUpdates } from "@/lib/data";
 
@@ -55,9 +55,9 @@ export default function Home() {
           <Section
             id="tournament-calendar"
             title="Tournament calendar"
-            intro="Full list of season tournaments, outings, and recurring play days at Bell Nob."
+            intro="Calendar and full list of season tournaments, outings, and recurring play days at Bell Nob."
           >
-            <TournamentCalendar
+            <TournamentEventSchedule
               year={seasonCalendarYear}
               months={seasonCalendar}
             />

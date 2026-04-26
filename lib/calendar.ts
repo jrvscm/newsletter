@@ -6,6 +6,17 @@ export type CalendarEvent = {
   title: string;
   /** Time, format (shotgun, T-times), and notes. */
   detail: string;
+  /**
+   * Optional more formal or complete name; shown in hover and screen readers
+   * when the calendar cell is truncated. Defaults to `title`.
+   */
+  fullTitle?: string;
+  /**
+   * Public URL to a flyer image (JPG, PNG, WebP) under `/public`, e.g.
+   * `"/flyers/2026/mens-member-member.jpg"`. Omitted for recurring days or
+   * when there is no graphic yet.
+   */
+  flyerUrl?: string;
 };
 
 export type CalendarMonth = {
@@ -83,7 +94,9 @@ export const seasonCalendar: CalendarMonth[] = [
         id: "may-3",
         days: "23–24",
         title: "Men’s club member / member",
+        fullTitle: "Men’s club member / member (two day event)",
         detail: "T-times",
+        // flyerUrl: "/flyers/2026/mens-member-member.jpg", // add when the flyer is ready
       },
       {
         id: "may-4",
