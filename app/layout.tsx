@@ -41,10 +41,10 @@ export const metadata: Metadata = {
       "Course updates, tournaments, and agronomy news from Bell Nob Golf Course, Gillette, WY.",
     images: [
       {
-        url: "/grounds/verti-drain.png",
-        width: 1024,
-        height: 576,
-        alt: "Course maintenance — aeration at Bell Nob Golf Course",
+        url: "/bellnob-clubhouse-share.png",
+        width: 326,
+        height: 154,
+        alt: "Bell Nob Golf Course clubhouse",
       },
     ],
   },
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "Bell Nob Golf Course — Newsletter",
     description:
       "Course updates, tournaments, and agronomy news from Bell Nob Golf Course.",
-    images: ["/grounds/verti-drain.png"],
+    images: ["/bellnob-clubhouse-share.png"],
   },
   robots: {
     index: true,
