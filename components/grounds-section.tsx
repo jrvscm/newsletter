@@ -14,13 +14,7 @@ type GroundsSectionProps = {
   initials: string;
 };
 
-function SingleImageBlock({
-  block,
-  priority,
-}: {
-  block: GroundsBlock;
-  priority?: boolean;
-}) {
+function SingleImageBlock({ block }: { block: GroundsBlock }) {
   return (
     <figure className="space-y-4">
       <div className="overflow-hidden rounded-lg border border-border bg-muted/30">
@@ -35,7 +29,6 @@ function SingleImageBlock({
               : "aspect-video w-full object-cover"
           }
           sizes="(max-width: 760px) 100vw, 720px"
-          priority={priority}
         />
       </div>
       <figcaption>
@@ -93,7 +86,6 @@ export function GroundsSection({
                   height={first.image.height}
                   className="aspect-[3/4] w-full object-cover"
                   sizes="(max-width: 640px) 100vw, 50vw"
-                  priority
                 />
               </div>
               <div className="overflow-hidden rounded-lg border border-border bg-muted/30">
@@ -138,7 +130,6 @@ export function GroundsSection({
             <SingleImageBlock
               key={block.image.src}
               block={block}
-              priority={index === 0}
             />
           ))
         )}

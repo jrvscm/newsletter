@@ -21,8 +21,8 @@ const siteUrl =
 
 /** Bumps when you change the share image so iMessage / Slack refresh their preview cache. */
 const shareImageCacheBust =
-  process.env.NEXT_PUBLIC_OG_IMAGE_CACHE_BUST?.trim() || "2";
-const shareImagePath = `/bellnob-clubhouse-share.png?v=${encodeURIComponent(shareImageCacheBust)}`;
+  process.env.NEXT_PUBLIC_OG_IMAGE_CACHE_BUST?.trim() || "3";
+const shareImagePath = `/og-bellnob-clubhouse-1200x630.png?v=${encodeURIComponent(shareImageCacheBust)}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: shareImagePath,
-        width: 326,
-        height: 154,
+        width: 1200,
+        height: 630,
         alt: "Bell Nob Golf Course clubhouse",
       },
     ],
