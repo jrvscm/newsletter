@@ -30,14 +30,14 @@ export function TournamentEventSchedule({
               {year} season
             </CardTitle>
             <p className="mt-1 text-xs text-muted-foreground">
-              Tournaments, outings, and recurring play. Formats and times are
+              Events, outings, and recurring play. Formats and times are
               subject to the pro shop schedule.
             </p>
           </div>
           <div
             className="flex shrink-0 gap-0.5 rounded-lg border border-border bg-background p-0.5"
             role="group"
-            aria-label="Tournament schedule view"
+            aria-label="Event schedule view"
           >
             <Button
               type="button"

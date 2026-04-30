@@ -167,7 +167,7 @@ export function TournamentScheduleCalendar({
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">
-            Recurring play days and one-day tournaments. Tap a day for the
+            Recurring play days and one-day events. Tap a day for the
             full schedule, or tap an event name for details and any flyer.
           </p>
         </div>

@@ -11,6 +11,7 @@ export type PlottedTournamentEvent = {
   isRecurring: boolean;
   /** Public path to a flyer image (under `/public`). */
   flyerUrl?: string;
+  registrationUrl?: string;
 };
 
 const MONTH_KEY_TO_1: Record<string, number> = {
@@ -207,6 +208,7 @@ export function buildTournamentEventMap(
               detail: ev.detail,
               isRecurring: false,
               flyerUrl: ev.flyerUrl,
+              registrationUrl: ev.registrationUrl,
             };
             addToMap(map, dkey, pe);
           }

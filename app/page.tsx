@@ -3,14 +3,23 @@ import { GolfProCard } from "@/components/golf-pro-card";
 import { GroundsSection } from "@/components/grounds-section";
 import { Header } from "@/components/Header";
 import { PastUpdates } from "@/components/past-updates";
+import { UpcomingEventsContent } from "@/components/upcoming-events";
 import { Section } from "@/components/Section";
 import { TournamentEventSchedule } from "@/components/tournament-event-schedule";
-import { seasonCalendar, seasonCalendarYear } from "@/lib/calendar";
-import { currentUpdate, pastUpdates } from "@/lib/data";
+import {
+  listDemoDayRegistrations,
+  seasonCalendar,
+  seasonCalendarYear,
+} from "@/lib/calendar";
+import { currentUpdate, pastUpdates, upcomingEventFlyers } from "@/lib/data";
 
 const SUBTITLE = "Course Updates & Events";
 
 export default function Home() {
+  const demoDayItems = listDemoDayRegistrations(seasonCalendar);
+  const hasUpcomingEvents =
+    upcomingEventFlyers.length > 0 || demoDayItems.length > 0;
+
   return (
     <div className="min-h-full bg-background">
       <a
@@ -33,29 +42,25 @@ export default function Home() {
         >
           <Section id="staff-updates" title="From our team">
             <div className="space-y-8">
-              <GolfProCard
-                message={currentUpdate.golfProMessage}
-                proName={currentUpdate.golfProName}
-                proTitle={currentUpdate.golfProTitle}
-                avatarUrl={currentUpdate.golfProAvatarUrl}
-                avatarAlt={currentUpdate.golfProAvatarAlt}
-                proInitials={currentUpdate.golfProInitials}
-              />
-              <GroundsSection
-                blocks={currentUpdate.groundsBlocks}
-                name={currentUpdate.groundsName}
-                title={currentUpdate.groundsTitle}
-                avatarUrl={currentUpdate.groundsAvatarUrl}
-                avatarAlt={currentUpdate.groundsAvatarAlt}
-                initials={currentUpdate.groundsInitials}
-              />
+              <GolfProCard message={currentUpdate.golfProMessage} />
+              <GroundsSection blocks={currentUpdate.groundsBlocks} />
             </div>
           </Section>
 
+          {hasUpcomingEvents ? (
+            <Section id="upcoming-events" title="Upcoming Events">
+              <hr className="border-border" />
+              <UpcomingEventsContent
+                flyers={upcomingEventFlyers}
+                demoDayItems={demoDayItems}
+              />
+            </Section>
+          ) : null}
+
           <Section
-            id="tournament-calendar"
-            title="Tournament calendar"
-            intro="Calendar and full list of season tournaments, outings, and recurring play days at Bell Nob."
+            id="event-calendar"
+            title="Event calendar"
+            intro="Calendar and full list of season events, outings, and recurring play days at Bell Nob."
           >
             <TournamentEventSchedule
               year={seasonCalendarYear}

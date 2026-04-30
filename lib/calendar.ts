@@ -12,11 +12,13 @@ export type CalendarEvent = {
    */
   fullTitle?: string;
   /**
-   * Public URL to a flyer image (JPG, PNG, WebP) under `/public`, e.g.
-   * `"/flyers/2026/mens-member-member.jpg"`. Omitted for recurring days or
-   * when there is no graphic yet.
+   * Public URL to a flyer image (PNG, JPG, WebP) under `/public`, e.g.
+   * `"/flyers/2026/open-shamble-26.png"`. Shown in the event popover and list
+   * hover. Omitted when there is no graphic yet.
    */
   flyerUrl?: string;
+  /** Optional external link (e.g. registration) shown in the event popover and list. */
+  registrationUrl?: string;
 };
 
 export type CalendarMonth = {
@@ -55,12 +57,6 @@ export const seasonCalendar: CalendarMonth[] = [
         detail: "9:00 shotgun",
       },
       {
-        id: "apr-5",
-        days: "25",
-        title: "4 player open shamble",
-        detail: "T-times",
-      },
-      {
         id: "apr-6",
         days: "27",
         title: "Couples night begins",
@@ -85,6 +81,22 @@ export const seasonCalendar: CalendarMonth[] = [
         detail: "9:00 shotgun",
       },
       {
+        id: "may-open-shamble",
+        days: "16",
+        title: "4 player open shamble",
+        detail: "T-times before 1:00 p.m.",
+        flyerUrl: "/flyers/2026/open-shamble-26.png",
+      },
+      {
+        id: "may-titleist",
+        days: "5",
+        title: "Titleist demo day",
+        detail: "Tuesday, May 5, 2026",
+        flyerUrl: "/flyers/2026/titleist-demo-may-5-26.svg",
+        registrationUrl:
+          "https://surefithub.titleist.com/book-fitting/59fbbd6929e749a7abd7bf3afee167ae/112656",
+      },
+      {
         id: "may-2",
         days: "23",
         title: "Ladies club member / member",
@@ -96,13 +108,21 @@ export const seasonCalendar: CalendarMonth[] = [
         title: "Men’s club member / member",
         fullTitle: "Men’s club member / member (two day event)",
         detail: "T-times",
-        // flyerUrl: "/flyers/2026/mens-member-member.jpg", // add when the flyer is ready
+        flyerUrl: "/flyers/2026/mens-member-member-26.png",
       },
       {
         id: "may-4",
         days: "25",
         title: "1 player scramble",
         detail: "T-times",
+      },
+      {
+        id: "may-callaway",
+        days: "29",
+        title: "Callaway demo day",
+        detail: "Friday, May 29, 2026 · 11:00 AM – 3:00 PM (MST)",
+        registrationUrl:
+          "https://process.callawaygolf.com/CgiServices/Fitting?id=afd7ea11-fbd9-44d0-9bc9-fa202917672a",
       },
       {
         id: "may-5",
@@ -309,5 +329,34 @@ export const seasonCalendar: CalendarMonth[] = [
     ],
   },
 ];
+
+export type DemoDayRegistration = {
+  id: string;
+  title: string;
+  detail: string;
+  href: string;
+};
+
+/** Events that include `registrationUrl` (e.g. manufacturer demo days), in season calendar order. */
+export function listDemoDayRegistrations(
+  months: CalendarMonth[] = seasonCalendar
+): DemoDayRegistration[] {
+  const out: DemoDayRegistration[] = [];
+  for (const m of months) {
+    for (const ev of m.events) {
+      const href = ev.registrationUrl?.trim();
+      if (!href) {
+        continue;
+      }
+      out.push({
+        id: ev.id,
+        title: ev.title,
+        detail: ev.detail,
+        href,
+      });
+    }
+  }
+  return out;
+}
 
 export const seasonCalendarYear = 2026;

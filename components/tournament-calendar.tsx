@@ -100,7 +100,7 @@ export function TournamentCalendar({
                 <ul
                   className="divide-y divide-border border-t border-border"
                   role="list"
-                  aria-label={`Tournaments in ${month.label} ${year}`}
+                  aria-label={`Events in ${month.label} ${year}`}
                 >
                   {month.events.map((ev) => (
                     <li key={ev.id} className="px-4 py-3 sm:px-5" role="listitem">
@@ -115,6 +115,7 @@ export function TournamentCalendar({
                             fullTitle={ev.fullTitle?.trim() || ev.title}
                             detail={ev.detail}
                             flyerUrl={ev.flyerUrl}
+                            registrationUrl={ev.registrationUrl}
                             isRecurring={isRecurringPlayDayId(ev.id)}
                             textClassName="text-sm font-medium leading-snug text-foreground"
                             hideDetailInTooltip
@@ -146,7 +147,7 @@ export function TournamentCalendar({
           {year} season
         </CardTitle>
         <p className="text-xs text-muted-foreground">
-          Tournaments, outings, and recurring play. Formats and times are subject
+          Events, outings, and recurring play. Formats and times are subject
           to the pro shop schedule.
         </p>
       </CardHeader>

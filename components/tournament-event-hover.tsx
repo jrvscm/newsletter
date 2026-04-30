@@ -12,6 +12,8 @@ type TournamentEventHoverByFieldsProps = {
   fullTitle: string;
   detail: string;
   flyerUrl?: string;
+  /** Shown in the popover (e.g. Titleist booking). */
+  registrationUrl?: string;
   isRecurring?: boolean;
   className?: string;
   textClassName?: string;
@@ -45,6 +47,7 @@ export function TournamentEventHover({
   fullTitle,
   detail,
   flyerUrl,
+  registrationUrl,
   isRecurring,
   className,
   textClassName,
@@ -53,10 +56,12 @@ export function TournamentEventHover({
 }: TournamentEventHoverByFieldsProps) {
   const openOnHover = useOpenPopoverOnHover();
   const hasImage = Boolean(flyerUrl?.trim());
+  const regUrl = registrationUrl?.trim();
   const a11yLabel = [
     fullTitle,
     !hideDetailInTooltip && detail,
     isRecurring ? "Recurring play day" : "",
+    regUrl ? "Registration link in details" : "",
   ]
     .filter(Boolean)
     .join(". ");
@@ -101,12 +106,15 @@ export function TournamentEventHover({
         >
           <Popover.Popup
             className={cn(
-              "z-[100] max-w-[min(20rem,92vw)] rounded-lg border border-border",
-              "bg-popover p-2.5 text-sm text-popover-foreground ring-1 ring-foreground/10",
+              "z-[100] rounded-lg border border-border",
+              "bg-popover text-sm text-popover-foreground ring-1 ring-foreground/10",
               "shadow-md outline-none",
               "data-open:duration-100 data-closed:duration-100",
               "data-open:animate-in data-closed:animate-out",
-              "data-closed:fade-out-0 data-open:fade-in-0"
+              "data-closed:fade-out-0 data-open:fade-in-0",
+              hasImage
+                ? "max-w-[min(42rem,96vw)] p-3 sm:p-3.5"
+                : "max-w-[min(20rem,92vw)] p-2.5"
             )}
           >
             <Popover.Title className="sr-only">{fullTitle}</Popover.Title>
@@ -131,7 +139,7 @@ export function TournamentEventHover({
                 <img
                   src={flyerUrl}
                   alt=""
-                  className="max-h-52 w-full min-w-0 object-contain"
+                  className="max-h-[min(75vh,36rem)] w-full min-w-0 object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -150,6 +158,17 @@ export function TournamentEventHover({
                 {detail}
               </p>
             )}
+            {regUrl ? (
+              <a
+                href={regUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Register
+                <span className="sr-only"> (opens in new tab)</span>
+              </a>
+            ) : null}
             <Popover.Close
               render={
                 <Button
@@ -189,6 +208,7 @@ export function PlottedTournamentEventLabelCell({
       fullTitle={event.fullTitle}
       detail={event.detail}
       flyerUrl={event.flyerUrl}
+      registrationUrl={event.registrationUrl}
       isRecurring={event.isRecurring}
       textClassName={textClassName}
       variant={variant}

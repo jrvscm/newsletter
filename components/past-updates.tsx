@@ -13,6 +13,10 @@ type PastUpdatesProps = {
 };
 
 export function PastUpdates({ items }: PastUpdatesProps) {
+  if (items.length === 0) {
+    return null;
+  }
+
   return (
     <Accordion defaultValue={[]} className="rounded-lg border border-border bg-card px-2">
       {items.map((item) => (

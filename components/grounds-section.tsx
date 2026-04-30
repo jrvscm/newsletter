@@ -1,18 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import { TractorIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { GroundsBlock } from "@/lib/data";
 
 type GroundsSectionProps = {
   blocks: GroundsBlock[];
-  name: string;
-  title: string;
-  avatarUrl: string;
-  avatarAlt: string;
-  initials: string;
 };
+
+function GroundsBlockText({ block }: { block: GroundsBlock }) {
+  if (!block.textRed) {
+    return <p className="text-sm leading-relaxed text-muted-foreground">{block.text}</p>;
+  }
+
+  return (
+    <div className="text-sm leading-relaxed">
+      <p className="text-muted-foreground">{block.text}</p>
+      <hr className="my-4 border-border" />
+      <p className="whitespace-pre-line text-red-600 dark:text-red-500">{block.textRed}</p>
+    </div>
+  );
+}
 
 function SingleImageBlock({ block }: { block: GroundsBlock }) {
   return (
@@ -32,45 +41,32 @@ function SingleImageBlock({ block }: { block: GroundsBlock }) {
         />
       </div>
       <figcaption>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {block.text}
-        </p>
+        <GroundsBlockText block={block} />
       </figcaption>
     </figure>
   );
 }
 
-export function GroundsSection({
-  blocks,
-  name,
-  title,
-  avatarUrl,
-  avatarAlt,
-  initials,
-}: GroundsSectionProps) {
+export function GroundsSection({ blocks }: GroundsSectionProps) {
   const [first, second, third] = blocks;
   const usePairLayout = blocks.length === 3 && first && second && third;
 
   return (
     <Card className="border border-border shadow-none ring-0">
-      <CardHeader className="flex flex-row items-start gap-4 border-b border-border pb-4">
-        <Avatar size="lg" className="size-14 shrink-0">
-          <AvatarImage src={avatarUrl} alt={avatarAlt} className="object-top" />
-          <AvatarFallback className="font-serif text-lg">{initials}</AvatarFallback>
-        </Avatar>
-        <div className="min-w-0 space-y-1">
-          <CardTitle className="font-serif text-xl font-medium">Grounds</CardTitle>
-          <p className="text-sm font-medium text-foreground">{name}</p>
-          <p className="text-sm text-muted-foreground">{title}</p>
-        </div>
+      <CardHeader className="border-b border-border pb-4">
+        <CardTitle className="flex items-center gap-2.5 font-serif text-xl font-medium">
+          <TractorIcon
+            className="size-5 shrink-0 text-muted-foreground"
+            aria-hidden
+          />
+          Grounds
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-10 pt-6 sm:space-y-12 sm:pt-8">
         {usePairLayout ? (
           <>
             <div>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {first.text}
-              </p>
+              <GroundsBlockText block={first} />
             </div>
 
             <div
@@ -101,9 +97,7 @@ export function GroundsSection({
             </div>
 
             <div>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {second.text}
-              </p>
+              <GroundsBlockText block={second} />
             </div>
 
             <figure className="space-y-4">
@@ -120,9 +114,7 @@ export function GroundsSection({
             </figure>
 
             <div>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {third.text}
-              </p>
+              <GroundsBlockText block={third} />
             </div>
           </>
         ) : (

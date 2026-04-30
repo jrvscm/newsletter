@@ -1,45 +1,28 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FlagIcon } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type GolfProCardProps = {
   message: string;
-  proName: string;
-  proTitle: string;
-  avatarUrl: string;
-  avatarAlt: string;
-  proInitials: string;
 };
 
-export function GolfProCard({
-  message,
-  proName,
-  proTitle,
-  avatarUrl,
-  avatarAlt,
-  proInitials,
-}: GolfProCardProps) {
+export function GolfProCard({ message }: GolfProCardProps) {
   return (
     <Card className="border border-border shadow-none ring-0">
-      <CardHeader className="flex flex-row items-start gap-4 border-b border-border pb-4">
-        <Avatar size="lg" className="size-14 shrink-0">
-          <AvatarImage src={avatarUrl} alt={avatarAlt} className="object-top" />
-          <AvatarFallback className="font-serif text-lg">{proInitials}</AvatarFallback>
-        </Avatar>
-        <div className="min-w-0 space-y-1">
-          <CardTitle className="font-serif text-xl font-medium">Club Pro</CardTitle>
-          <p className="text-sm font-medium text-foreground">{proName}</p>
-          <p className="text-sm text-muted-foreground">{proTitle}</p>
-        </div>
+      <CardHeader className="border-b border-border pb-4">
+        <CardTitle className="flex items-center gap-2.5 font-serif text-xl font-medium">
+          <FlagIcon
+            className="size-5 shrink-0 text-muted-foreground"
+            aria-hidden
+          />
+          Golf Shop
+        </CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
-        <p className="text-sm leading-relaxed text-muted-foreground">{message}</p>
+        <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+          {message}
+        </p>
       </CardContent>
     </Card>
   );
