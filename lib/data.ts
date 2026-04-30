@@ -65,7 +65,8 @@ export const currentUpdate = {
   title: "Bell Nob Golf Course",
   date: "May 2026",
   dateIso: "2026-05",
-  golfProMessage: "CAMERON WHAT DO YOU WANT HERE?",
+  golfProMessage:
+    "Hi All,\n\nWe are hoping the summer is finally going to kick in for good. We are going to start doing things a little differently and see how they work. We are going to do a link to a monthly newsletter. You will be able to access everything you need to know for the month.\n\nYou will get a greeting from the golf shop with all tournament flyers, monthly calendars, and links to sign up for demo days etc. You will also get a greeting from someone at maintenance letting you know what has and what is happening out on the course.\n\nYou will see we have demo days on Tuesday the 5th and Friday the 29th of the month. You will be able to click on those days and sign up for those events.\n\nWe are starting our marshall program in the coming weeks. We are looking for some marshalls this year again. Get a hold of Cameron if you are interested. He will let you know everything that goes into it.\n\nWe hope to see you all soon!\n\nChat soon, Take care!\n\n--------------------\n\nHandicap notice:\n\nIf you have not paid for your 2026 handicap, it will become inactive on May 15th. Please come into the golf shop to reactivate it if you have not done so. This $60 fee needs to be paid once a year.",
   groundsBlocks: [
     {
       image: {
