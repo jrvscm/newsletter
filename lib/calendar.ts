@@ -27,6 +27,25 @@ export type CalendarMonth = {
   events: CalendarEvent[];
 };
 
+/** First day of month implied by `days` (e.g. `"5"`, `"23–24"`) for sorting list views. */
+export function calendarEventStartDay(days: string): number {
+  const normalized = days.replace(/-/g, "–").trim();
+  const head = normalized.includes("–")
+    ? (normalized.split("–", 2)[0]?.trim() ?? "")
+    : normalized;
+  const n = Number.parseInt(head, 10);
+  return Number.isNaN(n) ? 999 : n;
+}
+
+/** Chronological order within a month (by start day) for the event list. */
+export function sortCalendarEventsByDay<T extends { days: string }>(
+  events: T[]
+): T[] {
+  return [...events].sort(
+    (a, b) => calendarEventStartDay(a.days) - calendarEventStartDay(b.days)
+  );
+}
+
 export const seasonCalendar: CalendarMonth[] = [
   {
     key: "april",
@@ -81,13 +100,6 @@ export const seasonCalendar: CalendarMonth[] = [
         detail: "9:00 shotgun",
       },
       {
-        id: "may-open-shamble",
-        days: "16",
-        title: "4 player open shamble",
-        detail: "T-times before 1:00 p.m.",
-        flyerUrl: "/flyers/2026/open-shamble-26.png",
-      },
-      {
         id: "may-titleist",
         days: "5",
         title: "Titleist demo day",
@@ -95,6 +107,13 @@ export const seasonCalendar: CalendarMonth[] = [
         flyerUrl: "/flyers/2026/titleist-demo-may-5-26.svg",
         registrationUrl:
           "https://surefithub.titleist.com/book-fitting/59fbbd6929e749a7abd7bf3afee167ae/112656",
+      },
+      {
+        id: "may-open-shamble",
+        days: "16",
+        title: "4 player open shamble",
+        detail: "T-times before 1:00 p.m.",
+        flyerUrl: "/flyers/2026/open-shamble-26.png",
       },
       {
         id: "may-2",
@@ -343,7 +362,7 @@ export function listDemoDayRegistrations(
 ): DemoDayRegistration[] {
   const out: DemoDayRegistration[] = [];
   for (const m of months) {
-    for (const ev of m.events) {
+    for (const ev of sortCalendarEventsByDay(m.events)) {
       const href = ev.registrationUrl?.trim();
       if (!href) {
         continue;

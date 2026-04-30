@@ -10,6 +10,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TournamentEventHover } from "@/components/tournament-event-hover";
 import type { CalendarMonth } from "@/lib/calendar";
+import { sortCalendarEventsByDay } from "@/lib/calendar";
 import { isRecurringPlayDayId } from "@/lib/calendar-expand";
 
 type TournamentCalendarProps = {
@@ -102,7 +103,7 @@ export function TournamentCalendar({
                   role="list"
                   aria-label={`Events in ${month.label} ${year}`}
                 >
-                  {month.events.map((ev) => (
+                  {sortCalendarEventsByDay(month.events).map((ev) => (
                     <li key={ev.id} className="px-4 py-3 sm:px-5" role="listitem">
                       <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-4">
                         <p className="shrink-0 font-mono text-sm tabular-nums text-primary sm:w-16">
