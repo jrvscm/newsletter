@@ -117,8 +117,9 @@ export const seasonCalendar: CalendarMonth[] = [
       },
       {
         id: "may-2",
-        days: "23",
+        days: "23–24",
         title: "Ladies club member / member",
+        fullTitle: "Ladies club member / member (two day event)",
         detail: "T-times",
       },
       {
