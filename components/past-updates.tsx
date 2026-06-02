@@ -6,6 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { GolfProCard } from "@/components/golf-pro-card";
+import { GroundsSection } from "@/components/grounds-section";
 import type { PastUpdate } from "@/lib/data";
 
 type PastUpdatesProps = {
@@ -25,9 +27,10 @@ export function PastUpdates({ items }: PastUpdatesProps) {
             {item.title}
           </AccordionTrigger>
           <AccordionContent className="px-2">
-            <p className="pb-2 text-sm leading-relaxed text-muted-foreground">
-              {item.summary}
-            </p>
+            <div className="space-y-8 pb-2">
+              <GolfProCard message={item.golfProMessage} />
+              <GroundsSection blocks={item.groundsBlocks} />
+            </div>
           </AccordionContent>
         </AccordionItem>
       ))}

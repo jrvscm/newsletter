@@ -170,6 +170,21 @@ export const seasonCalendar: CalendarMonth[] = [
       },
       { id: "jun-3", days: "12", title: "SME", detail: "2:00 shotgun" },
       {
+        id: "jun-ping",
+        days: "17",
+        title: "PING fitting day",
+        detail: "Wednesday, June 17, 2026",
+        registrationUrl:
+          "https://fitting.events.ping.com/en-us/event/3e359237-d84c-4d74-966f-578c2dcfa750",
+      },
+      {
+        id: "jun-mizuno",
+        days: "18",
+        title: "Mizuno fitting day",
+        detail: "Thursday, June 18, 2026",
+        registrationUrl: "https://mizunojk.as.me/BellNobGC",
+      },
+      {
         id: "jun-4",
         days: "19",
         title: "Young Life scramble",
@@ -357,6 +372,22 @@ export type DemoDayRegistration = {
   href: string;
 };
 
+const calendarMonthIndex: Record<string, number> = {
+  april: 4,
+  may: 5,
+  june: 6,
+  july: 7,
+  august: 8,
+  september: 9,
+  october: 10,
+};
+
+function issueMonthNumber(issueDateIso: string): number {
+  const mm = issueDateIso.split("-")[1];
+  const n = Number.parseInt(mm ?? "", 10);
+  return Number.isNaN(n) ? 1 : n;
+}
+
 /** Events that include `registrationUrl` (e.g. manufacturer demo days), in season calendar order. */
 export function listDemoDayRegistrations(
   months: CalendarMonth[] = seasonCalendar
@@ -377,6 +408,18 @@ export function listDemoDayRegistrations(
     }
   }
   return out;
+}
+
+/** Demo days from the newsletter issue month through the end of the season. */
+export function listDemoDayRegistrationsForIssue(
+  issueDateIso: string,
+  months: CalendarMonth[] = seasonCalendar
+): DemoDayRegistration[] {
+  const issueMonth = issueMonthNumber(issueDateIso);
+  const fromIssue = months.filter(
+    (m) => (calendarMonthIndex[m.key] ?? 0) >= issueMonth
+  );
+  return listDemoDayRegistrations(fromIssue);
 }
 
 export const seasonCalendarYear = 2026;

@@ -7,7 +7,7 @@ import { UpcomingEventsContent } from "@/components/upcoming-events";
 import { Section } from "@/components/Section";
 import { TournamentEventSchedule } from "@/components/tournament-event-schedule";
 import {
-  listDemoDayRegistrations,
+  listDemoDayRegistrationsForIssue,
   seasonCalendar,
   seasonCalendarYear,
 } from "@/lib/calendar";
@@ -16,7 +16,10 @@ import { currentUpdate, pastUpdates, upcomingEventFlyers } from "@/lib/data";
 const SUBTITLE = "Course Updates & Events";
 
 export default function Home() {
-  const demoDayItems = listDemoDayRegistrations(seasonCalendar);
+  const demoDayItems = listDemoDayRegistrationsForIssue(
+    currentUpdate.dateIso,
+    seasonCalendar
+  );
   const hasUpcomingEvents =
     upcomingEventFlyers.length > 0 || demoDayItems.length > 0;
 
