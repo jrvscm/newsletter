@@ -3,37 +3,62 @@
 import Image from "next/image";
 import { TractorIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { GroundsBlock } from "@/lib/data";
+import type { GalleryImage, GroundsBlock } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 type GroundsSectionProps = {
   blocks: GroundsBlock[];
 };
 
+function GroundsParagraphs({
+  text,
+  className,
+}: {
+  text: string;
+  className?: string;
+}) {
+  const paragraphs = text.split(/\n\n+/).filter((p) => p.trim().length > 0);
+
+  return (
+    <div className={cn("space-y-4 text-sm leading-relaxed", className)}>
+      {paragraphs.map((paragraph, index) => (
+        <p key={index}>{paragraph.trim()}</p>
+      ))}
+    </div>
+  );
+}
+
 function GroundsBlockText({ block }: { block: GroundsBlock }) {
   if (!block.textRed) {
-    return <p className="text-sm leading-relaxed text-muted-foreground">{block.text}</p>;
+    return (
+      <GroundsParagraphs
+        text={block.text}
+        className="text-muted-foreground"
+      />
+    );
   }
 
   return (
     <div className="text-sm leading-relaxed">
-      <p className="text-muted-foreground">{block.text}</p>
+      <GroundsParagraphs text={block.text} className="text-muted-foreground" />
       <hr className="my-4 border-border" />
       <p className="whitespace-pre-line text-red-600 dark:text-red-500">{block.textRed}</p>
     </div>
   );
 }
 
-function SingleImageBlock({ block }: { block: GroundsBlock }) {
+function SingleImageBlock({ block }: { block: GroundsBlock & { image: GalleryImage } }) {
+  const { image } = block;
   return (
     <figure className="space-y-4">
       <div className="overflow-hidden rounded-lg border border-border bg-muted/30">
         <Image
-          src={block.image.src}
-          alt={block.image.alt}
-          width={block.image.width}
-          height={block.image.height}
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
           className={
-            block.image.height > block.image.width
+            image.height > image.width
               ? "mx-auto max-h-[min(520px,58vh)] w-full object-contain"
               : "aspect-video w-full object-cover"
           }
@@ -47,9 +72,20 @@ function SingleImageBlock({ block }: { block: GroundsBlock }) {
   );
 }
 
+function hasImage(block: GroundsBlock): block is GroundsBlock & { image: GalleryImage } {
+  return block.image != null;
+}
+
 export function GroundsSection({ blocks }: GroundsSectionProps) {
   const [first, second, third] = blocks;
-  const usePairLayout = blocks.length === 3 && first && second && third;
+  const usePairLayout =
+    blocks.length === 3 &&
+    first &&
+    second &&
+    third &&
+    hasImage(first) &&
+    hasImage(second) &&
+    hasImage(third);
 
   return (
     <Card className="border border-border shadow-none ring-0">
@@ -118,12 +154,15 @@ export function GroundsSection({ blocks }: GroundsSectionProps) {
             </div>
           </>
         ) : (
-          blocks.map((block, index) => (
-            <SingleImageBlock
-              key={block.image.src}
-              block={block}
-            />
-          ))
+          blocks.map((block, index) =>
+            hasImage(block) ? (
+              <SingleImageBlock key={block.image.src} block={block} />
+            ) : (
+              <div key={index}>
+                <GroundsBlockText block={block} />
+              </div>
+            )
+          )
         )}
       </CardContent>
     </Card>
