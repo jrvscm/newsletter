@@ -190,6 +190,7 @@ export function TournamentEventHover({
 
 type PlottedLabelProps = {
   event: PlottedTournamentEvent;
+  hideDetailInTooltip?: boolean;
 } & Pick<
   TournamentEventHoverByFieldsProps,
   "className" | "textClassName" | "variant"
@@ -200,6 +201,7 @@ export function PlottedTournamentEventLabelCell({
   className,
   textClassName,
   variant = "cell",
+  hideDetailInTooltip,
 }: PlottedLabelProps) {
   return (
     <TournamentEventHover
@@ -212,6 +214,7 @@ export function PlottedTournamentEventLabelCell({
       isRecurring={event.isRecurring}
       textClassName={textClassName}
       variant={variant}
+      hideDetailInTooltip={hideDetailInTooltip}
     />
   );
 }
