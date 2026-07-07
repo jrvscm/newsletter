@@ -232,12 +232,30 @@ export const seasonCalendar: CalendarMonth[] = [
         title: "RMS 2 person match play",
         detail: "8:00 shotgun",
       },
+      {
+        id: "jul-titleist",
+        days: "16",
+        title: "Titleist demo day",
+        detail: "Thursday, July 16, 2026 · 1:00 PM – 5:00 PM",
+        registrationUrl:
+          "https://surefithub.titleist.com/book-fitting/59fbbd6929e749a7abd7bf3afee167ae/",
+      },
       { id: "jul-3", days: "17", title: "John Paul II", detail: "8:00 shotgun" },
       {
-        id: "jul-4",
+        id: "jul-ladies-championship",
         days: "18–19",
-        title: "Men’s & Ladies’ club championships",
-        detail: "T-times",
+        title: "Ladies club championships",
+        fullTitle: "Ladies club championships (two day event)",
+        detail: "T-times before 1:00 p.m.",
+        flyerUrl: "/flyers/2026/ladies-club-championships-26.png",
+      },
+      {
+        id: "jul-mens-championship",
+        days: "18–19",
+        title: "Men's club championships",
+        fullTitle: "Men's club championships (two day event)",
+        detail: "Black and red tee flights · T-times before 1:00 p.m. Saturday",
+        flyerUrl: "/flyers/2026/mens-club-championship-26.png",
       },
       {
         id: "jul-5",
@@ -248,8 +266,9 @@ export const seasonCalendar: CalendarMonth[] = [
       {
         id: "jul-6",
         days: "20",
-        title: "Thunder Basin Ford Men’s Pro-Am",
-        detail: "T-times",
+        title: "Thunder Basin Ford Men's Pro-Am",
+        detail: "T-times before 1:30 p.m.",
+        flyerUrl: "/flyers/2026/mens-pro-am-26.png",
       },
       {
         id: "jul-7",

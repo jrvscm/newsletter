@@ -173,6 +173,29 @@ function sortDayEvents(
   return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
 }
 
+/** Cell view shows two labels; prefer flyer events, keep derby behind overflow. */
+export function sortEventsForCalendarCell(
+  events: PlottedTournamentEvent[]
+): PlottedTournamentEvent[] {
+  return [...events].sort((a, b) => {
+    const cellRank = (ev: PlottedTournamentEvent) => {
+      if (ev.sourceId === "jul-5") {
+        return 2;
+      }
+      if (ev.flyerUrl?.trim()) {
+        return 0;
+      }
+      return 1;
+    };
+    const ra = cellRank(a);
+    const rb = cellRank(b);
+    if (ra !== rb) {
+      return ra - rb;
+    }
+    return sortDayEvents(a, b);
+  });
+}
+
 /**
  * Plots all season events onto concrete local calendar days for `year`
  * (singles and ranges from `days`, plus four weekly recurring play-day rules).

@@ -6,6 +6,7 @@ import {
   buildTournamentEventMap,
   isSeasonViewMonth,
   SEASON_MONTH_RANGE,
+  sortEventsForCalendarCell,
   type PlottedTournamentEvent,
 } from "@/lib/calendar-expand";
 import { Button } from "@/components/ui/button";
@@ -102,8 +103,11 @@ export function TournamentScheduleCalendar({
   const leadPad = firstDow;
   const totalInner = leadPad + daysInMonth;
   const nCells = Math.ceil(totalInner / 7) * 7;
-  const selectedEvents: PlottedTournamentEvent[] =
-    eventMap.get(selectedDkey) ?? [];
+  const selectedEvents: PlottedTournamentEvent[] = useMemo(
+    () =>
+      sortEventsForCalendarCell(eventMap.get(selectedDkey) ?? []),
+    [eventMap, selectedDkey]
+  );
 
   const atSeasonStart = month0 === SEASON_MONTH_RANGE.from;
   const atSeasonEnd = month0 === SEASON_MONTH_RANGE.to;
@@ -201,7 +205,7 @@ export function TournamentScheduleCalendar({
                 2,
                 "0"
               )}-${String(dayNum).padStart(2, "0")}`;
-              const list = eventMap.get(dkey) ?? [];
+              const list = sortEventsForCalendarCell(eventMap.get(dkey) ?? []);
               const inSeason = isSeasonViewMonth(year, month0, year);
               const isTodayCell = isToday(year, month0, dayNum) && inSeason;
               return (
@@ -256,11 +260,19 @@ export function TournamentScheduleCalendar({
                       </li>
                     ))}
                     {list.length > 2 ? (
-                      <li
-                        className="text-[0.55rem] text-muted-foreground sm:text-xs"
-                        aria-label={`+${list.length - 2} more`}
-                      >
-                        +{list.length - 2} more
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            openDay(dayNum);
+                          }}
+                          className="w-full text-left text-[0.55rem] text-muted-foreground underline-offset-2 hover:text-foreground hover:underline sm:text-xs"
+                          aria-label={`${list.length - 2} more event${
+                            list.length - 2 === 1 ? "" : "s"
+                          } on ${formatDateHeading(year, month0, dayNum)}`}
+                        >
+                          +{list.length - 2} more
+                        </button>
                       </li>
                     ) : null}
                   </ul>
@@ -298,17 +310,17 @@ export function TournamentScheduleCalendar({
                   key={ev.instanceId}
                   className="border-b border-border/80 pb-3 last:border-0 last:pb-0"
                 >
-                  <p className="text-sm font-medium text-foreground">
-                    {ev.title}
-                    {ev.isRecurring ? (
-                      <span className="ml-2 inline-block text-xs font-normal text-primary">
-                        Weekly
-                      </span>
-                    ) : null}
-                  </p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                    {ev.detail}
-                  </p>
+                  <PlottedTournamentEventLabelCell
+                    event={ev}
+                    variant="list"
+                    hideDetailInTooltip
+                    textClassName="text-sm font-medium leading-snug text-foreground"
+                  />
+                  {ev.detail ? (
+                    <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                      {ev.detail}
+                    </p>
+                  ) : null}
                 </li>
               ))}
             </ul>

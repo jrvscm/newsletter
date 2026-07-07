@@ -10,6 +10,25 @@ type GroundsSectionProps = {
   blocks: GroundsBlock[];
 };
 
+function linkifyText(text: string) {
+  const parts = text.split(/(https?:\/\/[^\s]+)/g);
+  return parts.map((part, index) =>
+    /^https?:\/\//.test(part) ? (
+      <a
+        key={index}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-medium text-primary underline-offset-2 hover:underline"
+      >
+        {part}
+      </a>
+    ) : (
+      <span key={index}>{part}</span>
+    )
+  );
+}
+
 function GroundsParagraphs({
   text,
   className,
@@ -22,7 +41,7 @@ function GroundsParagraphs({
   return (
     <div className={cn("space-y-4 text-sm leading-relaxed", className)}>
       {paragraphs.map((paragraph, index) => (
-        <p key={index}>{paragraph.trim()}</p>
+        <p key={index}>{linkifyText(paragraph.trim())}</p>
       ))}
     </div>
   );
