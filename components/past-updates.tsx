@@ -28,7 +28,10 @@ export function PastUpdates({ items }: PastUpdatesProps) {
           </AccordionTrigger>
           <AccordionContent className="px-2">
             <div className="space-y-8 pb-2">
-              <GolfProCard message={item.golfProMessage} />
+              <GolfProCard
+                message={item.golfProMessage}
+                images={item.golfProImages}
+              />
               <GroundsSection blocks={item.groundsBlocks} />
             </div>
           </AccordionContent>

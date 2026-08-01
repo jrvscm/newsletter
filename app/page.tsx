@@ -45,7 +45,10 @@ export default function Home() {
         >
           <Section id="staff-updates" title="From our team">
             <div className="space-y-8">
-              <GolfProCard message={currentUpdate.golfProMessage} />
+              <GolfProCard
+                message={currentUpdate.golfProMessage}
+                images={currentUpdate.golfProImages}
+              />
               <GroundsSection blocks={currentUpdate.groundsBlocks} />
             </div>
           </Section>

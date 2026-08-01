@@ -16,6 +16,7 @@ export type PastUpdate = {
   id: string;
   title: string;
   golfProMessage: string;
+  golfProImages?: GalleryImage[];
   groundsBlocks: GroundsBlock[];
 };
 
@@ -41,33 +42,33 @@ export type UpcomingEventFlyer =
 
 export const upcomingEventFlyers: UpcomingEventFlyer[] = [
   {
-    id: "flyer-ladies-club-championship-2026",
+    id: "flyer-ladies-pro-am-2026",
     kind: "image",
     image: {
-      src: "/flyers/2026/ladies-club-championships-26.png",
-      alt: "Ladies club championships flyer: July 18 and 19, 2026, tee times before 1:00 p.m., $100 entry, format and contact details",
-      width: 791,
-      height: 1024,
+      src: "/flyers/2026/ladies-pro-am-26.png",
+      alt: "Ladies Pro-Am Shamble flyer: Thursday August 13, 2026, tee times before 2:00, $70 entry, sponsored by Sulzer",
+      width: 1236,
+      height: 1600,
     },
   },
   {
-    id: "flyer-mens-club-championship-2026",
+    id: "flyer-dice-scramble-2026",
     kind: "image",
     image: {
-      src: "/flyers/2026/mens-club-championship-26.png",
-      alt: "Men's club championships flyer: July 18 and 19, 2026, black and red tee flights, $100 entry, format and contact details",
-      width: 791,
-      height: 1024,
+      src: "/flyers/2026/dice-scramble-26.png",
+      alt: "Dice Scramble flyer: Saturday August 29, 2026, tee times before 1:00 p.m., $50 per player",
+      width: 1236,
+      height: 1600,
     },
   },
   {
-    id: "flyer-mens-pro-am-2026",
+    id: "flyer-couples-tourney-2026",
     kind: "image",
     image: {
-      src: "/flyers/2026/mens-pro-am-26.png",
-      alt: "Thunder Basin Ford men's 5 player pro-am flyer: Monday July 20, 2026, tee times before 1:30 p.m., $80 entry, format and contact details",
-      width: 791,
-      height: 1024,
+      src: "/flyers/2026/couples-tourney-26.png",
+      alt: "Couples tournament flyer: September 5–6, 2026, 8:30 a.m. shotgun both days, $240 per couple",
+      width: 1236,
+      height: 1600,
     },
   },
 ];
@@ -116,8 +117,59 @@ const june2026GroundsBlocks = [
   },
 ] satisfies GroundsBlock[];
 
+const july2026GolfProMessage =
+  "Hi All,\n\nJuly is upon us and the heat is finally here!!\n\nThe monthly calendar is below.\n\nBelow you will see flyers for the Club Championships. Men will have a red tee and a black tee flight to determine the multiple champions. Ladies will be a 2 day event this year instead of one.\n\nWe have our last demo day on the 16th. Titleist will be here from 1-5 on that Thursday. The link to sign up is below.\n\nThe mens pro am will be Monday the 20th.\n\nWe hope you all are having a great summer!\n\nChat soon";
+
+const july2026GroundsBlocks = [
+  {
+    text: "We hope everyone has been enjoying the course so far this year! As the drought continues and looks to last through the rest of summer, we are doing everything we can to try and keep everything healthy and playable from tee to green. We made the purchase of some impact sprinklers recently that we can hook into our irrigation system and try and get some areas extra water locally without over watering surrounding areas. These will typically be running in different areas throughout the day as we cycle them throughout the property all week long. With high heats finally showing up, if you're playing on 95+ degree days we will be back to syringe areas on the golf course that need it including fairways and greens. Please be patient as these processes are completed. They are needed to help keep Bell Nob in the best condition that we can. I know that this was a hot topic during the US Open at Shinnecock this year as due to high temps, high winds, and low humidity (typical Gillette weather). Interrupting play is not something we enjoy doing but is necessary for plant health. For more information on why we syringe please click the link to this USGA article https://www.usga.org/content/usga/home-page/course-care/green-section-record/64/issue-11/what-is-syringing-and-why-is-it-done-.html .\n\nA question I've been getting semi-regularly is about the pond on number 7 not being filled this year. This pond is filled from the same wells that fill our irrigation pond. When we divert water to this pond to fill it we would be losing pumping approximately 200,000 gallons a day into our irrigation pond. As much as I believe the pond on #7 being filled completely changes that hole for the better and really makes you consider going for the green in 2, with the current drought conditions I do not find it advantageous to fill right now. If the weather does change and we start getting some consistent rains (that aren't followed by 5 days of 40+ sustained winds) we will get those valves opened!\n\nOne of our assistants, Robert Burdick, recently took a job down in Luling, Texas. We wish him the best in the next steps of his career and are in the process of conducting a search for his replacement. While this is a crucial position to be filled within the maintenance department, we also want to make sure that we are hiring a good fit for Bell Nob and Campbell County Parks and Rec. I would like to also take this time to acknowledge our staff that is doing a great job during these conditions both full time and seasonal. I believe most of you know our full timers, First Assistant Hunter Peterson and Senior Mechanic Kenny Schwartz. They are a huge part of keeping Bell Nob in the conditions we see year-round and make my job easier which is a huge asset to myself and Bell Nob.\n\nPlease make sure to fix your ball marks, and use cart paths when they are available. As always, thank you for your support.",
+  },
+] satisfies GroundsBlock[];
+
+const august2026GolfProMessage =
+  "Hey there,\n\nCongrats to our 2026 Club Champions\nKameron Hunter\nChad Lang\nJason Kasperik\nDale Wishard\nNicole Heafner\nStacey Byrum\n\nIt is so hard to believe August is already here.\nFlyers for the month are below in Upcoming Events.\n\nAugust 13th is the Ladies pro am/Shamble (Sponsored by Sulzer)\nAugust 29th is the Dice Scramble.\nThe flyer for the couples tournament Labor Day weekend is there as well.\n\nA little housekeeping:\n\nIf you come out early in the morning to play a couple holes, please look for the red and white pole and go play the 9 that does not have the pole.\nIf you have a 7am tee time, please wait until exactly 7am to start. We try really hard to coordinate with maintenance and make sure they are out of the way for everyone else that particular day.\nMaintenance has done an amazing job keeping this course looking the way it does with the heat we have been having. Every little thing we can do to help them out is appreciated\n\nWe hope everyone is having a great summer.\n\nChat soon";
+
+const august2026GolfProImages = [
+  {
+    src: "/champions/mens-champions-1.jpg",
+    alt: "Two 2026 men's club champions holding trophies at Bell Nob",
+    width: 1600,
+    height: 2133,
+  },
+  {
+    src: "/champions/mens-champions-2.jpg",
+    alt: "Two 2026 men's club champions holding trophies in front of the clubhouse fireplace",
+    width: 1600,
+    height: 2133,
+  },
+  {
+    src: "/champions/nicole-heafner.jpg",
+    alt: "Nicole Heafner, 2026 ladies club champion, holding her trophy",
+    width: 1600,
+    height: 2133,
+  },
+  {
+    src: "/champions/stacey-byrum.jpg",
+    alt: "Stacey Byrum, 2026 club champion, holding her trophy in the golf shop",
+    width: 1600,
+    height: 2133,
+  },
+] satisfies GalleryImage[];
+
+const august2026GroundsBlocks = [
+  {
+    text: 'Welcome to August! What a year 2026 has been so far weather wise. Compared to my first year where we had timely rainfalls, average or below average temperatures, and very few high wind days, 2026 is the complete opposite. In fact, according to drought.gov; "The 2026 drought in Gillette is outpacing both 2012 and 2020 in terms of initial winter/spring dry speed and winter snowpack deficits. It currently tracks as the 3rd driest year-to-date over a 132-year historical record for Campbell County." Which brings me to what I\'d like to talk about this month, being as we are currently in maintenance and survival mode on the golf course with little new to report project wise.\n\nWhy can\'t I drive there when I could a couple weeks ago and in prior years? Due to the drought we are in and the irrigation coverage in certain areas of the golf course to minimize the amount of water we use on non-primary playing areas we have added some geo fencing around the property. Off the top of my head, areas that have been added this year include the left side of #2 towards the green, left and right side of #11, and the left and right sides of #15 (native is being expanded on both sides here as well). Without rainfall or irrigation coverage in these areas the grass goes dormant and shuts down to try and survive these conditions we are facing. It has a much better chance of surviving and these areas not turning to complete hard panned dirt without 100+ carts driving over them daily. Currently #17 will remain our only par 3 that isn\'t cart path only for pace of play purposes, but that is also being considered reducing areas that can be driven in pending the weather continuing how it is. The rains that we have had at the end of July have given a little reprieve and the opportunity to turn the irrigation system off for the night, but when we get half an inch of moisture in 15 minutes a lot of that runs right off our spots that need the water and into our low spots that have decent moisture already. Adjustments to our GPS capabilities with the Geo Fencing will continue to change on a day to day, month to month, or even year to year basis pending the weather conditions and overall turf health in these areas.\n\nWe hope everyone has a little better insight to how we look at these areas and make adjustments to them. As always, please continue to fix your ball marks, replace divots when you can, and fill your divots on the par 3s. Thank you for your support and help in keeping Bell Nob in the best condition that we all can.',
+  },
+] satisfies GroundsBlock[];
+
 /** Re-add `PastUpdate` objects here as you publish more issues. */
 export const pastUpdates: PastUpdate[] = [
+  {
+    id: "july-2026",
+    title: "July 2026",
+    golfProMessage: july2026GolfProMessage,
+    groundsBlocks: july2026GroundsBlocks,
+  },
   {
     id: "june-2026",
     title: "June 2026",
@@ -134,13 +186,9 @@ export const pastUpdates: PastUpdate[] = [
 
 export const currentUpdate = {
   title: "Bell Nob Golf Course",
-  date: "July 2026",
-  dateIso: "2026-07",
-  golfProMessage:
-    "Hi All,\n\nJuly is upon us and the heat is finally here!!\n\nThe monthly calendar is below.\n\nBelow you will see flyers for the Club Championships. Men will have a red tee and a black tee flight to determine the multiple champions. Ladies will be a 2 day event this year instead of one.\n\nWe have our last demo day on the 16th. Titleist will be here from 1-5 on that Thursday. The link to sign up is below.\n\nThe mens pro am will be Monday the 20th.\n\nWe hope you all are having a great summer!\n\nChat soon",
-  groundsBlocks: [
-    {
-      text: "We hope everyone has been enjoying the course so far this year! As the drought continues and looks to last through the rest of summer, we are doing everything we can to try and keep everything healthy and playable from tee to green. We made the purchase of some impact sprinklers recently that we can hook into our irrigation system and try and get some areas extra water locally without over watering surrounding areas. These will typically be running in different areas throughout the day as we cycle them throughout the property all week long. With high heats finally showing up, if you're playing on 95+ degree days we will be back to syringe areas on the golf course that need it including fairways and greens. Please be patient as these processes are completed. They are needed to help keep Bell Nob in the best condition that we can. I know that this was a hot topic during the US Open at Shinnecock this year as due to high temps, high winds, and low humidity (typical Gillette weather). Interrupting play is not something we enjoy doing but is necessary for plant health. For more information on why we syringe please click the link to this USGA article https://www.usga.org/content/usga/home-page/course-care/green-section-record/64/issue-11/what-is-syringing-and-why-is-it-done-.html .\n\nA question I've been getting semi-regularly is about the pond on number 7 not being filled this year. This pond is filled from the same wells that fill our irrigation pond. When we divert water to this pond to fill it we would be losing pumping approximately 200,000 gallons a day into our irrigation pond. As much as I believe the pond on #7 being filled completely changes that hole for the better and really makes you consider going for the green in 2, with the current drought conditions I do not find it advantageous to fill right now. If the weather does change and we start getting some consistent rains (that aren't followed by 5 days of 40+ sustained winds) we will get those valves opened!\n\nOne of our assistants, Robert Burdick, recently took a job down in Luling, Texas. We wish him the best in the next steps of his career and are in the process of conducting a search for his replacement. While this is a crucial position to be filled within the maintenance department, we also want to make sure that we are hiring a good fit for Bell Nob and Campbell County Parks and Rec. I would like to also take this time to acknowledge our staff that is doing a great job during these conditions both full time and seasonal. I believe most of you know our full timers, First Assistant Hunter Peterson and Senior Mechanic Kenny Schwartz. They are a huge part of keeping Bell Nob in the conditions we see year-round and make my job easier which is a huge asset to myself and Bell Nob.\n\nPlease make sure to fix your ball marks, and use cart paths when they are available. As always, thank you for your support.",
-    },
-  ] satisfies GroundsBlock[],
+  date: "August 2026",
+  dateIso: "2026-08",
+  golfProMessage: august2026GolfProMessage,
+  golfProImages: august2026GolfProImages,
+  groundsBlocks: august2026GroundsBlocks,
 };

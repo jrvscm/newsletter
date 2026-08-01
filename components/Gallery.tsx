@@ -8,12 +8,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { GalleryImage } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 type GalleryProps = {
   images: GalleryImage[];
+  /** Grid columns from the `sm` breakpoint up. Defaults to 3. */
+  columns?: 2 | 3;
 };
 
-export function Gallery({ images }: GalleryProps) {
+export function Gallery({ images, columns = 3 }: GalleryProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<GalleryImage | null>(null);
 
@@ -31,7 +34,12 @@ export function Gallery({ images }: GalleryProps) {
 
   return (
     <>
-      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+      <ul
+        className={cn(
+          "grid grid-cols-1 gap-3 sm:gap-4",
+          columns === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3"
+        )}
+      >
         {images.map((image) => (
           <li key={image.src} className="min-w-0">
             <button
@@ -46,8 +54,15 @@ export function Gallery({ images }: GalleryProps) {
                 alt=""
                 width={image.width}
                 height={image.height}
-                className="aspect-[4/3] w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                sizes="(max-width: 640px) 100vw, 33vw"
+                className={cn(
+                  "w-full object-cover transition duration-300 group-hover:scale-[1.02]",
+                  columns === 2 ? "aspect-[3/4]" : "aspect-[4/3]"
+                )}
+                sizes={
+                  columns === 2
+                    ? "(max-width: 640px) 100vw, 50vw"
+                    : "(max-width: 640px) 100vw, 33vw"
+                }
               />
             </button>
           </li>
